@@ -1,0 +1,14 @@
+{
+    "product": "EasyEdge-Free", 
+    "ak": null, 
+    "nType": 0, 
+    "apiUrl": null, 
+    "thresholdRec": 0.1, 
+    "sk": null, 
+    "model_version": 2, 
+    "model_type": 100, 
+    "soc": [
+        "arm"
+    ], 
+    "model_name": "OCR EasyEdge Free"
+}

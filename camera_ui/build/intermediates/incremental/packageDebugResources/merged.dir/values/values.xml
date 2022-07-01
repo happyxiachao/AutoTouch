@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bk_black">#000000</color>
+    <color name="bk_blue">#3B85F5</color>
+    <color name="bk_result_image_padding">#EEEEEE</color>
+    <color name="result_popview_tablebody_bk">#3b85f5</color>
+    <color name="result_section_border_color">#E5E5E5</color>
+    <color name="table_result_item_text_color">#3B85F5</color>
+    <color name="table_result_tableheader_text_color">#333333</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="textColorHighlight">#F5A623</color>
+    <dimen name="action_btn_size">120dp</dimen>
+    <dimen name="action_btn_text_size">46px</dimen>
+    <dimen name="operation_btn_margin_top">136px</dimen>
+    <dimen name="operation_btn_margin_top_take_picture">126px</dimen>
+    <dimen name="result_list_gap_width">15dp</dimen>
+    <dimen name="result_list_padding_lr">15dp</dimen>
+    <dimen name="result_list_popview_text_size">36px</dimen>
+    <dimen name="result_list_view_text_size">46px</dimen>
+    <string name="action_bar_back">&lt;</string>
+    <string name="action_bar_model_name">模型名称</string>
+    <string name="action_bar_realtime">实时识别</string>
+    <string name="action_bar_take_photo">拍照识别</string>
+    <string name="operation_confidence_control">阈值控制</string>
+    <string name="operation_retry">重新识别</string>
+    <string name="operation_save">保存结果</string>
+    <string name="result_label">识别结果</string>
+    <string name="result_table_header_confidence">置信度</string>
+    <string name="result_table_header_index">序号</string>
+    <string name="result_table_header_name">名称</string>
+    <style name="action_btn">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:background">@color/bk_black</item>
+    </style>
+    <style name="action_btn_selected">
+        <item name="android:textColor">@color/textColorHighlight</item>
+        <item name="android:background">@color/bk_black</item>
+    </style>
+    <style name="list_result_popview_item_style">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">@dimen/result_list_popview_text_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">15px</item>
+        <item name="android:background">@color/result_popview_tablebody_bk</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:alpha">0.5</item>
+    </style>
+    <style name="list_result_popview_tablehead_style">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">@dimen/result_list_popview_text_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">20px</item>
+    </style>
+    <style name="list_result_view_item_style">
+        <item name="android:textColor">@color/table_result_item_text_color</item>
+        <item name="android:textSize">@dimen/result_list_view_text_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">30px</item>
+    </style>
+    <style name="list_result_view_tablehead_style">
+        <item name="android:textColor">@color/table_result_item_text_color</item>
+        <item name="android:textSize">@dimen/result_list_view_text_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">15px</item>
+    </style>
+</resources>

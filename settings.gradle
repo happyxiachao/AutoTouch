@@ -1,0 +1,4 @@
+include ':camera_ui'
+include ':recordlibrary'
+include ':app'
+rootProject.name='AutoTouch'

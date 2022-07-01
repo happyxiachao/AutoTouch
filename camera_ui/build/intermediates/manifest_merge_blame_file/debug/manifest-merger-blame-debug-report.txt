@@ -1,0 +1,26 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.baidu.ai.edge.ui"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="26" />
+9-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:4:5-65
+11-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:4:22-62
+12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+12-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:5:5-81
+12-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:5:22-78
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:6:5-67
+13-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:6:22-64
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:7:5-79
+14-->/Users/xiachao/1玲珑/4WB/自动识别OCR和点击/AutoTouch-master/camera_ui/src/main/AndroidManifest.xml:7:22-76
+15
+16</manifest>

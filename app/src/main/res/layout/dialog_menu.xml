@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_dialog_menu_bg"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:textColor="#fff"
+            android:background="#f10"
+            android:id="@+id/bt_stop"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:text="停止控制"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp" />
+
+        <Button
+            android:layout_marginStart="1dp"
+            android:textColor="#fff"
+            android:background="#666"
+            android:id="@+id/bt_add"
+            android:textSize="15sp"
+            android:text="添加识别文字"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp" />
+
+        <Button
+            android:layout_marginStart="1dp"
+            android:textColor="#fff"
+            android:background="#666"
+            android:id="@+id/bt_record"
+            android:textSize="15sp"
+            android:text="录制模式"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:layout_marginStart="1dp"
+            android:textColor="#fff"
+            android:background="#666"
+            android:id="@+id/bt_exit"
+            android:textSize="15sp"
+            android:text="退出助手"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/delayEt"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:text="5"
+            android:hint="请输入识别频次间隔时间"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"
+            />
+        <Button
+            android:id="@+id/saveDelay"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textColor="#fff"
+            android:background="#666"
+            android:text="设置识别间隔时间"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:text="识别关键词列表"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+</LinearLayout>
