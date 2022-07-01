@@ -108,8 +108,8 @@ public class BaiduManager {
 
     // 是离线还是在线模式
     private boolean isOnline = false;
-//    protected int model = MODEL_OCR;
-    protected int model = MODEL_SEGMENT;
+    protected int model = MODEL_OCR;
+//    protected int model = MODEL_SEGMENT;
 
 
     static final int ACTION_TYPE_SCAN = 0;
