@@ -288,7 +288,7 @@ public class AutoTouchService extends AccessibilityService {
         AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
         if(nodeInfo != null && "com.xhlis.lis.transport.transport".equals(nodeInfo.getPackageName().toString())){
             AccessibilityNodeInfo source = event.getSource();
-            if (source != null & event.getClassName().equals("android.widget.EditText")) {
+            if (source != null & event != null && event.getClassName() != null && event.getClassName().equals("android.widget.EditText")) {
                 Bundle arguments = new Bundle();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     String hintText  =event.getSource().getHintText().toString();
