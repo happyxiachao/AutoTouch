@@ -794,6 +794,9 @@ public class BaiduManager {
     }
 
     public void onOcrBitmap(Bitmap bitmap, float confidence, com.baidu.ai.edge.ui.activity.ResultListener.OcrListener listener) {
+        if (mOcrManager == null) {
+            return;
+        }
         List<OcrResultModel> modelList = null;
         try {
             modelList = mOcrManager.ocr(bitmap, confidence);

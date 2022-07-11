@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,10 +30,12 @@ import com.tamsiree.rxkit.RxActivityTool;
 import com.tamsiree.rxkit.RxDeviceTool;
 import com.yorhp.recordlibrary.ScreenShotUtil;
 import com.zhang.autotouch.BaiduManager;
+import com.zhang.autotouch.BuildConfig;
 import com.zhang.autotouch.R;
 import com.zhang.autotouch.TouchEventManager;
 import com.zhang.autotouch.bean.TouchEvent;
 import com.zhang.autotouch.bean.TouchPoint;
+import com.zhang.autotouch.utils.DataUtil;
 import com.zhang.autotouch.utils.DensityUtil;
 import com.zhang.autotouch.utils.ToastUtil;
 import com.zhang.autotouch.utils.WindowUtils;
@@ -62,13 +66,13 @@ public class AutoTouchService extends AccessibilityService {
     private DecimalFormat floatDf = new DecimalFormat("#0.0");
     //修改点击文本的倒计时
     private Runnable touchViewRunnable;
-
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
         handler = new Handler();
         EventBus.getDefault().register(this);
         windowManager = WindowUtils.getWindowManager(this);
+        DataUtil.createTestData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -120,13 +124,46 @@ public class AutoTouchService extends AccessibilityService {
 
                     @Override
                     public void onResult(List<BasePolygonResultModel> results) {
-                        if (BaiduManager.getInstance().getKeySet() == null || BaiduManager.getInstance().getKeySet().isEmpty()) {
+//                        if (BaiduManager.getInstance().getKeySet() == null || BaiduManager.getInstance().getKeySet().isEmpty()) {
+//                            return;
+//                        }
+//                        boolean find = false;
+//                        for (String key : BaiduManager.getInstance().getKeySet()) {
+//                            for (BasePolygonResultModel resultModel : results) {
+//                                Log.i("识别结果","识别结果："+resultModel.getName());//品哥，核心比对代码在这里
+//                                if (key != null && resultModel.getName() != null && resultModel.getName().contains(key)) {
+//                                    Log.i("KEYRESULT", "识别到了：" + resultModel.getName() +" " +
+//                                            resultModel.getBounds().get(0).x +" " +
+//                                            resultModel.getBounds().get(0).y +" " +
+//                                            resultModel.getBounds().get(1).x +" " +
+//                                            resultModel.getBounds().get(1).y +" " +
+//                                            resultModel.getBounds().get(2).x +" " +
+//                                            resultModel.getBounds().get(2).y +" " +
+//                                            resultModel.getBounds().get(3).x +" " +
+//                                            resultModel.getBounds().get(3).y +" " );
+////                                    doClick(resultModel.getBounds())
+//                                    final Point point = getCenterOfGravityPoint(resultModel.getBounds());
+//                                    Log.i("KEYRESULT", "点击x:"+point.x + " y:"+point.y);
+//                                    find = true;
+//                                    RxActivityTool.currentActivity().runOnUiThread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            doClick(point.x , point.y);
+//                                        }
+//                                    });
+//                                    break;
+//                                }
+//                            }
+//                        }
+
+                        if (DataUtil.getKeySet() == null || DataUtil.getKeySet().isEmpty()) {
                             return;
                         }
                         boolean find = false;
-                        for (String key : BaiduManager.getInstance().getKeySet()) {
+                        for (String key : DataUtil.getKeySet()) {
                             for (BasePolygonResultModel resultModel : results) {
-                                if (key != null && resultModel.getName() != null && key.equals(resultModel.getName())) {
+                                Log.i("识别结果","识别结果："+resultModel.getName());//品哥，核心比对代码在这里
+                                if (key != null && resultModel.getName() != null && resultModel.getName().contains(key)) {
                                     Log.i("KEYRESULT", "识别到了：" + resultModel.getName() +" " +
                                             resultModel.getBounds().get(0).x +" " +
                                             resultModel.getBounds().get(0).y +" " +
@@ -209,7 +246,25 @@ public class AutoTouchService extends AccessibilityService {
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
-                Log.d("AutoTouchService", "滑动结束" + gestureDescription.getStrokeCount());
+                Log.d("AutoTouchService", "点击结束" + gestureDescription.getStrokeCount());
+                if (BuildConfig.DEBUG) {
+                    ToastUtil.show("点击OK");
+//                    Bundle arguments = new Bundle();
+//                    arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, Constents.mobile[mobile_j]);
+//                    info.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                    RxActivityTool.currentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AccessibilityNodeInfo rootNode = getRootInActiveWindow();
+                            //查找到聚焦的文本
+                            AccessibilityNodeInfo accessibilityNodeInfo = rootNode.findFocus(AccessibilityNodeInfo.FOCUS_INPUT);
+                            Bundle arguments = new Bundle();
+                            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "android");
+                            accessibilityNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                        }
+                    });
+
+                }
             }
 
             @Override
@@ -228,9 +283,43 @@ public class AutoTouchService extends AccessibilityService {
 //        return autoTouchPoint.getDelay() * 1000L;
         return DELAY_TIME * 1000L;
     }
-
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
+        if(nodeInfo != null && "com.xhlis.lis.transport.transport".equals(nodeInfo.getPackageName().toString())){
+            AccessibilityNodeInfo source = event.getSource();
+            if (source != null & event.getClassName().equals("android.widget.EditText")) {
+                Bundle arguments = new Bundle();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    String hintText  =event.getSource().getHintText().toString();
+                            arguments.putCharSequence(AccessibilityNodeInfo
+                            .ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, DataUtil.get(hintText));
+                    DataUtil.remove(hintText);
+                }
+                source.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                Log.d("AutoTouchService", "点击结束 输入完成");
+            }
+        }
+//        if(nodeInfo != null && "com.xhlis.lis.transport.transport".equals(nodeInfo.getPackageName().toString())) {
+//            List<AccessibilityNodeInfo> nodes = nodeInfo.findAccessibilityNodeInfosByViewId("com.xhlis.lis.transport.transport:id/select");
+//            List<AccessibilityNodeInfo> nodesInsert = nodeInfo.findAccessibilityNodeInfosByViewId("com.xhlis.lis.transport.transport:id/insert");
+//            //回收ondeInfo,避免重复创建
+//            nodeInfo.recycle();
+//
+////            AccessibilityNodeInfo rootNode = getRootInActiveWindow();
+////            //查找到聚焦的文本
+////            AccessibilityNodeInfo accessibilityNodeInfo = rootNode.findFocus(AccessibilityNodeInfo.FOCUS_INPUT);
+//            //点击操作
+//            AccessibilityNodeInfo checkinfo = nodes.get(0);
+//            if(!checkinfo.isChecked()){
+//                checkinfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+//                checkinfo.recycle();
+//            }
+//            //文本输入内容
+//            Bundle arguments = new Bundle();
+//            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "测试");
+//            nodesInsert.get(0).performAction(AccessibilityNodeInfo.ACTION_SET_TEXT,arguments);
+//        }
     }
 
     @Override
